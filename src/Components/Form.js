@@ -42,11 +42,16 @@ const tagsData = [
 
 
 
+
+
 const Form = ({notes,setNotes}) => {
     const [note,setNote] = useState({
         titleNote:"",
         noteNote:"",
-        colorNote:"",
+        colorNote:{
+            lightColor:"#FEE2E2",
+            darkColor :"#B91C1C"
+        },
         tagsNote:[]
     })
 
@@ -66,7 +71,13 @@ const Form = ({notes,setNotes}) => {
         return <div className = "palette">
              {
                  colors.map ((color,index) => {
-                     return <div key={index} style={{background:color.darkColor,height:"1rem",width:"1rem",borderRadius:"50%"}}></div>
+                     if (color.darkColor === note.colorNote.darkColor){
+                     return <div style={{border:"3px solid black",borderRadius:"50%"}}>
+                         <div key={index} style={{background:color.darkColor,margin:"0.15rem"}} className="colorList" onClick = {()=>setNote({...note,colorNote:{lightColor:color.lightColor,darkColor:color.darkColor}})}></div>
+                        </div>
+
+                     }
+                     return <div key={index} style={{background:color.darkColor}} className="colorList" onClick = {()=>setNote({...note,colorNote:{lightColor:color.lightColor,darkColor:color.darkColor}})}></div>
                  })
              }
         </div>
@@ -87,9 +98,28 @@ const Form = ({notes,setNotes}) => {
 
         </ul>
     }
+
+
+    const addNoteHandler = (e) => {
+        e.preventDefault();
+        setNotes([...notes,{id:2,
+            title : note.titleNote,
+            notes:note.noteNote,
+            color:note.colorNote,
+            tags:note.tagsNote}])
+
+        setNote({
+            titleNote:"",
+            noteNote:"",
+            colorNote:"#B91C1C",
+            tagsNote:[]
+        })
+    }
     // console.log(note.titleNote,note.noteNote)
     // console.log(show);
-    console.log(tags)
+    // console.log(note.note)
+    // console.log(tags)
+    console.log(note)
     return (
         
         <form className = "form">
@@ -97,27 +127,31 @@ const Form = ({notes,setNotes}) => {
             <label htmlFor="title">Title</label>
             <input type="text" value={note.titleNote} onChange = {(e)=>setNote({...note,titleNote:e.target.value})}></input>
             <label htmlFor="note" value={note.noteNote}>Note</label>
-            <input type="text" onChange = {(e)=>setNote({...note,noteNote:e.target.value})}></input>
+            <textarea type="text" onChange = {(e)=>setNote({...note,noteNote:e.target.value})} style = {{height:"7rem"}}></textarea>
             <label htmlFor="note" value={note.noteNote}>Tags</label>
             <input type="text" onFocus = {()=>{setShow({...show,tags:true})}} value={note.tagsNote}></input>
             {show.tags && showTags()}
             
             <div className = "form-btns">
-                
-            <button className = "color"
+            {/* <div style = {{display:"flex",justifyContent:"center",alignItems:"center"}}>   
+            <span className = "color"
                     style = {show.color?{background:"green",color:"white"}:{}}
-                    onClick = {(e)=>{
+                    >
+                        Color
+            </span>
+            <span className = "currentColor" style={{background:note.colorNote,cursor:"pointer"}} onClick = {(e)=>{
                         e.preventDefault();
                         setShow({color:!show.color,tags:false})
-                    }}>
-                        Color
-            </button>
+                    }}></span>
+            </div> */}
+            {openColorPalette()}
+
                 
-            <button className = "add-note">
+            <button className = "add-note" onClick = {addNoteHandler}>
                 Add Note
             </button>
             </div>
-            {show.color && openColorPalette()}
+            
         </form>
         
         

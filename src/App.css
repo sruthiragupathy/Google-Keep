@@ -4,25 +4,30 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   --green-button-bg:#3DB46D;
+  --primary-color : #9128d7;
 
 }
+
 
 button{
   cursor:pointer;
 }
 
-input:focus,button:focus{
+input:focus,button:focus,textarea:focus{
   outline: none;
 }
 
+
+
 .form-div{
   display:flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .form{
-  min-width:25rem;
+  min-width:21rem;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -30,16 +35,19 @@ input:focus,button:focus{
   border : 1px solid black;
   border-radius: 1rem;
   padding: 1rem;
+  margin-bottom: 4rem;
 
 }
 
-.form input{
+.form input,textarea{
   width:95%;
   padding:0.5rem;
   border : 1px solid #000000;
   margin-bottom: 1.5rem;
   font-size: 1rem;
   border-radius: 1rem;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .form label{
@@ -63,7 +71,7 @@ input:focus,button:focus{
   align-items: center;
 }
 
-.form button{
+button{
   font-family: 'Montserrat', sans-serif;
   border: none;
 
@@ -86,6 +94,8 @@ input:focus,button:focus{
 .palette {
   display: flex;
   width:7rem;
+  height:2rem;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -99,7 +109,7 @@ input:focus,button:focus{
 
 .span{
   display: inline-block;
-  width:80%;
+  width:75%;
 }
 .tagsList li:hover{
   background: #E5E7EB;
@@ -107,13 +117,176 @@ input:focus,button:focus{
 }
 ul{
   position: absolute;
-  width:25rem;
+  width:21rem;
   height:10rem;
   overflow: scroll;
   padding-inline-start:0px;
   margin-block-start:0px;
   z-index:2;
-  top:25rem;
+  top:31rem;
   background: white;
   box-shadow: 3px 3px 5px 5px #E5E7EB;
+}
+
+.currentColor{
+  display:inline-block;
+  height:1rem;
+  width:1rem;
+  border-radius:50%;
+  margin-left:1rem;
+}
+
+.colorList{
+  height:1rem;
+  width:1rem;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.tags-container {
+  margin : 0 1.5rem 3rem 1.5rem
+}
+
+.primary-btn{
+  margin-bottom: 1rem;
+  background: var(--primary-color) ;
+}
+
+.bordered-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border : 1px solid grey;
+  border-radius: 1rem;
+  padding: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.tag-form{
+  display: flex;
+  margin-bottom: 1.5rem;
+  
+}
+
+
+.tag-input {
+  padding:0.5rem;
+  border : 1px solid #000000;
+  
+  font-size: 1rem;
+  /* border-radius: 1rem; */
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.add-tag {
+  padding:0.5rem;
+  background: var(--green-button-bg);
+  color:white;
+
+}
+
+.tags-flex{
+ 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.tag-btn {
+   padding:1rem;
+   background: transparent;
+   border : 1px solid var(--primary-color);
+   border-radius : 1rem;
+   color:var(--primary-color);
+   margin-bottom:1.5rem;
+   margin-right:1.5rem;
+   text-transform: capitalize;
+   
+}
+
+
+.tag-btn:nth-last-child(1){
+  margin-right:0;
+}
+
+.tag-btn:hover{
+  background: var(--primary-color);
+  color:white;
+}
+
+.notes-container{
+  width:100%;
+  margin-top:1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border : 1px solid grey;
+  border-radius: 1rem;
+  padding: 1rem;
+  /* padding-bottom: 0.5rem; */
+}
+
+.container {
+  width:80%;
+}
+
+.card {
+  width:20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding:1rem;
+  
+  margin-bottom:2rem;
+  
+}
+
+.card p{
+  text-align:justify;
+}
+
+.card h2{
+  margin-block-start: 0em;
+  margin-block-end: 0;
+}
+
+.pinned
+{
+  background: #EF4444;
+  color:white;
+  padding : 0.25rem;
+}
+
+.icon {
+  width:2rem;
+  height:2rem;
+  border-radius: 50%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.icon:hover {
+  background:#E5E7EB;
+}
+
+.pin-btn {
+  color:white;
+  background:transparent;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+
+.allnotes{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
