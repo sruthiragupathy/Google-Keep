@@ -52,6 +52,24 @@ const Note = ({item,notesData,setNotes}) => {
         
     }
 
+    const pinHandler = () => {
+        setNotes(prev => 
+            prev.map (note => {
+                if(note.id ===id){
+                    return {...note,pin:!pin}
+                }
+                return note
+            })
+        )
+    }
+
+    const deleteHandler = () => {
+        setNotes(prev => 
+            prev.filter(note=>{
+                return note.id!==id
+            }))
+    }
+
     const openColorPalette = () =>{
         return <div className = "palette">
              {
@@ -92,9 +110,9 @@ const Note = ({item,notesData,setNotes}) => {
                 {openColorPalette()}
             </div>
             {
-                pin ? <button className = "pin-btn" style = {{color:color.darkColor,border:`2px solid ${color.darkColor}`}}>Unpin</button> : <button>Pin</button>
+                pin ? <button className = "pin-btn" style = {{color:color.darkColor,border:`2px solid ${color.darkColor}`}} onClick = {pinHandler}>Unpin</button> : <button style = {{color:color.darkColor,border:`2px solid ${color.darkColor}`}} className = "pin-btn" onClick = {pinHandler}>Pin</button>
             }
-            <button className = "pinned">Delete</button>
+            <button className = "pinned" onClick = {deleteHandler}>Delete</button>
         </div>
 
     </div>

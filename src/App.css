@@ -278,7 +278,7 @@ ul{
 .pin-btn {
   color:white;
   background:transparent;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   font-weight: bold;
 }
 
@@ -287,6 +287,6 @@ ul{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }

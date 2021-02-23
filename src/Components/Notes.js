@@ -20,6 +20,18 @@ const Notes = ({notes,setNotes}) => {
                 })
             }
         </div>
+        <span className = "add-note primary-btn">Other Notes</span>
+
+        <div className = "allnotes">
+
+            
+{
+    
+    notes.filter(item=>!item.pin).map(item => {
+        return <Note item = {item} notes = {notes} setNotes = {setNotes}/>
+    })
+}
+</div>
         </div>
 
     </div>
