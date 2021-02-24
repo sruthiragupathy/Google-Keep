@@ -351,3 +351,8 @@ button{
 .thumbtack:hover{
   background :#F3F4F6;
 }
+
+
+textarea{
+  resize: none;
+}
