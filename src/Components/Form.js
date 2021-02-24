@@ -126,14 +126,11 @@ const Form = ({notes,setNotes,tags,setTags}) => {
                 e.preventDefault();
                 setNote({...note,pinNote:!note.pinNote})
             }}>{note.pinNote?"Unpin":"Pin"}</button> */}
-            <div className = "thumbtack" style = {{border:`1px solid ${getBorderColor()}`}}>
-            {note.pinNote ? <FontAwesomeIcon onClick = {()=>{
-               
-                setNote({...note,pinNote:!note.pinNote})
-            }} icon={faThumbtack} style = {{color:"#DC2626",cursor:"pointer"}} size = "lg"/> : <FontAwesomeIcon onClick = {()=>{
-               
-                setNote({...note,pinNote:!note.pinNote,cursor:"pointer"})
-            }} icon={faThumbtack} style = {{color:"#6B7280",cursor:"pointer"}}/>}
+            <div className = "thumbtack"  onClick = {()=>{
+               setNote({...note,pinNote:!note.pinNote})
+           }} 
+           style = {{border:`1px solid ${getBorderColor()}`}}>
+            {note.pinNote ? <FontAwesomeIcon icon={faThumbtack} style = {{color:"#DC2626"}} size = "lg"/> : <FontAwesomeIcon icon={faThumbtack} style = {{color:"#6B7280"}}/>}
             </div>
             </div>
             <input type="text" value={note.titleNote} onChange = {(e)=>setNote({...note,titleNote:e.target.value})}></input>
