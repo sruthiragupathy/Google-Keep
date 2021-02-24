@@ -1,43 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbtack} from '@fortawesome/free-solid-svg-icons'
 
-const colors = [
-    {
-        id:1,
-        lightColor:"#F3F4F6",
-        darkColor:"#374151"
-    },
-    {
-        id:2,
-        lightColor:"#FEE2E2",
-        darkColor:"#B91C1C"
-    },
-    {
-        id:3,
-        lightColor:"#FEF3C7",
-        darkColor:"#F59E0B"
-    },
-    {
-        id:4,
-        lightColor:"#DBEAFE",
-        darkColor:"#2563EB"
-    },
-    {
-        id:5,
-        lightColor:"#E0E7FF",
-        darkColor:"#4338CA"
-    }
-]
+import {colors} from "./variables/color"
 
 
 const Note = ({item,notesData,setNotes}) => {
+    
 
     const {id,title,notes,color,tags,pin} = item
 
+    const [inEditMode,setInEditMode] = useState(false);
+    const [editNote , setEditNote] = useState(notes);
+    
+
+
     const colorHandler =(item) =>{
        setNotes(prev => 
-           prev.map(note => {
+           prev.map((note,index) => {
             if(note.id === id){
                 return {...note,color:{
                     lightColor : item.lightColor,
@@ -54,7 +34,7 @@ const Note = ({item,notesData,setNotes}) => {
 
     const pinHandler = () => {
         setNotes(prev => 
-            prev.map (note => {
+            prev.map ((note,index) => {
                 if(note.id ===id){
                     return {...note,pin:!pin}
                 }
@@ -70,13 +50,25 @@ const Note = ({item,notesData,setNotes}) => {
             }))
     }
 
+    const editHandler = (e) => {
+       e.preventDefault();
+       setInEditMode(prev=>!prev);
+       setNotes(prev => prev.map ((note,index)=>{
+            if(note.id === id){
+                return {...item,notes:editNote}
+            }
+            return note
+       }))
+
+    }
+
     const openColorPalette = () =>{
         return <div className = "palette">
              {
                  colors.map ((item,index) => {
                      if (item.darkColor === color.darkColor){
-                     return <div style={{border:"3px solid black",borderRadius:"50%"}}>
-                         <div key={index} style={{background:item.darkColor,margin:"0.15rem"}} className="colorList" onClick = {() => setNotes({...notesData,color:{lightColor:item.lightColor,darkColor:item.dar}})}></div>
+                     return <div style={{border:"3px solid black",borderRadius:"50%"}} key={index} >
+                         <div style={{background:item.darkColor,margin:"0.15rem"}} className="colorList" onClick = {() => setNotes({...notesData,color:{lightColor:item.lightColor,darkColor:item.dar}})}></div>
                         </div>
 
                      }
@@ -88,7 +80,8 @@ const Note = ({item,notesData,setNotes}) => {
     
     return <div className = "card" style = {{background:color.lightColor,border:`2px solid ${color.darkColor}`}}>
         <div style = {{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%"}}>
-        <h2>{item.title}</h2>
+        <h3 style = {{width:"50%",textAlign:"left"}}>{item.title}</h3>
+        <button style = {{background : color.darkColor, color:"white" , padding:"0.5rem"}} onClick={editHandler}>{inEditMode?"Update":"Edit"}</button>
         {
     
             pin && 
@@ -97,11 +90,11 @@ const Note = ({item,notesData,setNotes}) => {
             
         }
         </div>
-        <p>{item.notes}</p>
-        <div>
+        {inEditMode ? <textarea className="textarea" value = {editNote} onChange = {(e)=>setEditNote(e.target.value)}></textarea> : <p onClick = {() => setInEditMode(prev=>!prev)}>{item.notes}</p> }
+        <div style = {{marginBottom:"0.5rem"}}>
         {
             tags.map ((tag,index) => {
-                return <span style={{display:"inline"}}>#{tag} </span>
+                return <span key={index} style={{display:"inline"}}>#{tag} </span>
             })
         }
         </div>

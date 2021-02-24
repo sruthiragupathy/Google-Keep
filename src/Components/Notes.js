@@ -2,14 +2,14 @@ import React,{useState} from "react";
 import Note from "./Note"
 
 const Notes = ({notes,setNotes}) => {
-    console.log(notes)
+    // console.log(notes)
     return <div className = "container">
         <span className = "add-note primary-btn">
             Notes
         </span>
         <div className = "notes-container">
             <span className = "add-note primary-btn">Pinned Notes</span>
-            {console.log("inside notes")}
+            {/* {console.log("inside notes")} */}
             <div className = "allnotes">
 
             

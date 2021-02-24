@@ -1,58 +1,19 @@
 import React,{useDebugValue, useState} from "react";
+import { v4 as uuidv4 } from 'uuid';
 
-const colors = [
-    {
-        id:1,
-        lightColor:"#F3F4F6",
-        darkColor:"#374151"
-    },
-    {
-        id:2,
-        lightColor:"#FEE2E2",
-        darkColor:"#B91C1C"
-    },
-    {
-        id:3,
-        lightColor:"#FEF3C7",
-        darkColor:"#F59E0B"
-    },
-    {
-        id:4,
-        lightColor:"#DBEAFE",
-        darkColor:"#2563EB"
-    },
-    {
-        id:5,
-        lightColor:"#E0E7FF",
-        darkColor:"#4338CA"
-    }
-]
+import {colors} from "./variables/color"
 
 
-const tagsData = [
-    "react",
-    "javascript",
-    "css",
-    "html5",
-    "technology",
-    "science"
-]
-
-
-
-
-
-
-
-const Form = ({notes,setNotes}) => {
+const Form = ({notes,setNotes,tags,setTags}) => {
     const [note,setNote] = useState({
         titleNote:"",
         noteNote:"",
         colorNote:{
-            lightColor:"#FEE2E2",
-            darkColor :"#B91C1C"
+            lightColor:"#FEF3C7",
+            darkColor:"#F59E0B"
         },
-        tagsNote:[]
+        tagsNote:[],
+        pinNote:false
     })
 
     const [show,setShow] = useState ({
@@ -60,7 +21,9 @@ const Form = ({notes,setNotes}) => {
         tags:false
     })
 
-    const [tags,setTags] = useState (tagsData.sort())
+    const [error,setError] = useState("");
+
+    // const [tags,setTags] = useState (tagsData.sort())
 
     const RemoveTag = (e,item) => {
         e.preventDefault();
@@ -88,8 +51,8 @@ const Form = ({notes,setNotes}) => {
             <li style={{display:"flex",justifyContent:"flex-end",marginRight:"1rem"}}>
                 <button style={{background:"#DC2626",color:"#FFF"}} onClick={()=>setShow({...show,tags:false})}>x</button>
             </li>
-            {tags.map((item,index) => {
-                return <li key={index}> 
+            {tags.sort().map((item,index) => {
+                return <li key={index} className = "tagDropdown"> 
                 <span onClick={()=>setNote({...note,tagsNote:[...note.tagsNote,item]})} value={note.tagsNote} className="span">{item}</span>
                 <button onClick = {(e)=>RemoveTag(e,item)}>Remove</button>
                 </li>
@@ -102,33 +65,62 @@ const Form = ({notes,setNotes}) => {
 
     const addNoteHandler = (e) => {
         e.preventDefault();
-        setNotes([...notes,{id:2,
+
+        if(note.titleNote === ""){
+            setError("Title Field is Empty")
+        }
+        else if(note.noteNote === ""){
+            setError("Note Field is Empty")
+        }
+        else{
+        setNotes([{id:uuidv4(),
             title : note.titleNote,
             notes:note.noteNote,
             color:note.colorNote,
-            tags:note.tagsNote}])
+            tags:note.tagsNote,
+            pin:note.pinNote},...notes])
 
         setNote({
             titleNote:"",
             noteNote:"",
-            colorNote:"#B91C1C",
+            colorNote: {
+                lightColor:"#FEF3C7",
+                darkColor:"#F59E0B"
+            },
             tagsNote:[]
         })
+
+        setError("")
+    }
     }
     // console.log(note.titleNote,note.noteNote)
     // console.log(show);
     // console.log(note.note)
     // console.log(tags)
-    console.log(note)
+    // console.log(note)
     return (
         
         <form className = "form">
-            
-            <label htmlFor="title">Title</label>
+            {error && 
+            <div className="error">
+            <p style = {{marginBlockStart:0,marginBlockEnd:0}}>{error}</p>
+            <button className = "x" onClick = {(e) => {
+                e.preventDefault();
+                setError("")
+            }}>x</button>
+            </div>
+            }
+            <div className = "pin-title">
+            <label htmlFor="title" style = {{marginBottom:0}}>Title</label>
+            <button  className = "pin-btn" onClick = {(e)=>{
+                e.preventDefault();
+                setNote({...note,pinNote:!note.pinNote})
+            }}>{note.pinNote?"Unpin":"Pin"}</button>
+            </div>
             <input type="text" value={note.titleNote} onChange = {(e)=>setNote({...note,titleNote:e.target.value})}></input>
-            <label htmlFor="note" value={note.noteNote}>Note</label>
-            <textarea type="text" onChange = {(e)=>setNote({...note,noteNote:e.target.value})} style = {{height:"7rem"}}></textarea>
-            <label htmlFor="note" value={note.noteNote}>Tags</label>
+            <label htmlFor="note">Note</label>
+            <textarea type="text" value = {note.noteNote} onChange = {(e)=>setNote({...note,noteNote:e.target.value})} style = {{height:"7rem"}} ></textarea>
+            <label htmlFor="note">Tags</label>
             <input type="text" onFocus = {()=>{setShow({...show,tags:true})}} value={note.tagsNote}></input>
             {show.tags && showTags()}
             

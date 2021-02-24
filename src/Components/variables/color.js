@@ -1,0 +1,27 @@
+export const colors = [
+    {
+        id:1,
+        lightColor:"#F3F4F6",
+        darkColor:"#374151"
+    },
+    {
+        id:2,
+        lightColor:"#FEE2E2",
+        darkColor:"#B91C1C"
+    },
+    {
+        id:3,
+        lightColor:"#FEF3C7",
+        darkColor:"#F59E0B"
+    },
+    {
+        id:4,
+        lightColor:"#DBEAFE",
+        darkColor:"#2563EB"
+    },
+    {
+        id:5,
+        lightColor:"#FCE7F3",
+        darkColor:"#DB2777"
+    }
+]
