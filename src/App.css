@@ -337,3 +337,14 @@ button{
   padding:0.25rem;
 }
 
+.thumbtack {
+  width : 1rem;
+  height : 1rem;
+  border-radius : 50%;
+  border:1px solid;
+  padding:0.5rem;
+}
+
+.thumbtack:hover{
+  background :#F3F4F6;
+}

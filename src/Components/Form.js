@@ -1,5 +1,7 @@
 import React,{useDebugValue, useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbtack} from '@fortawesome/free-solid-svg-icons'
 
 import {colors} from "./variables/color"
 
@@ -93,6 +95,14 @@ const Form = ({notes,setNotes,tags,setTags}) => {
         setError("")
     }
     }
+
+    function getBorderColor() {
+        if(note.pinNote){
+            return "#DC2626"
+        }
+        return "#6B7280"
+
+    }
     // console.log(note.titleNote,note.noteNote)
     // console.log(show);
     // console.log(note.note)
@@ -112,10 +122,19 @@ const Form = ({notes,setNotes,tags,setTags}) => {
             }
             <div className = "pin-title">
             <label htmlFor="title" style = {{marginBottom:0}}>Title</label>
-            <button  className = "pin-btn" onClick = {(e)=>{
+            {/* <button  className = "pin-btn" onClick = {(e)=>{
                 e.preventDefault();
                 setNote({...note,pinNote:!note.pinNote})
-            }}>{note.pinNote?"Unpin":"Pin"}</button>
+            }}>{note.pinNote?"Unpin":"Pin"}</button> */}
+            <div className = "thumbtack" style = {{border:`1px solid ${getBorderColor()}`}}>
+            {note.pinNote ? <FontAwesomeIcon onClick = {()=>{
+               
+                setNote({...note,pinNote:!note.pinNote})
+            }} icon={faThumbtack} style = {{color:"#DC2626",cursor:"pointer"}} size = "lg"/> : <FontAwesomeIcon onClick = {()=>{
+               
+                setNote({...note,pinNote:!note.pinNote,cursor:"pointer"})
+            }} icon={faThumbtack} style = {{color:"#6B7280",cursor:"pointer"}}/>}
+            </div>
             </div>
             <input type="text" value={note.titleNote} onChange = {(e)=>setNote({...note,titleNote:e.target.value})}></input>
             <label htmlFor="note">Note</label>
