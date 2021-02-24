@@ -130,7 +130,7 @@ const Form = ({notes,setNotes,tags,setTags}) => {
                setNote({...note,pinNote:!note.pinNote})
            }} 
            style = {{border:`1px solid ${getBorderColor()}`}}>
-            {note.pinNote ? <FontAwesomeIcon icon={faThumbtack} style = {{color:"#DC2626"}} size = "lg"/> : <FontAwesomeIcon icon={faThumbtack} style = {{color:"#6B7280"}}/>}
+             <FontAwesomeIcon icon={faThumbtack} style = {{color:getBorderColor()}} size = {note.pinNote?"lg":""}/> 
             </div>
             </div>
             <input type="text" value={note.titleNote} onChange = {(e)=>setNote({...note,titleNote:e.target.value})}></input>
