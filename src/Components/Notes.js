@@ -16,7 +16,7 @@ const Notes = ({notes,setNotes}) => {
             {
                 
                 notes.filter(item=>item.pin).map(item => {
-                    return <Note item = {item} notes = {notes} setNotes = {setNotes}/>
+                    return <Note key = {item.id} item = {item} notes = {notes} setNotes = {setNotes}/>
                 })
             }
         </div>
@@ -28,7 +28,7 @@ const Notes = ({notes,setNotes}) => {
 {
     
     notes.filter(item=>!item.pin).map(item => {
-        return <Note item = {item} notes = {notes} setNotes = {setNotes}/>
+        return <Note key = {item.id} item = {item} notes = {notes} setNotes = {setNotes}/>
     })
 }
 </div>

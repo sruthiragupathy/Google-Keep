@@ -138,6 +138,7 @@ button{
   top:31rem;
   background: white;
   box-shadow: 3px 3px 5px 5px #E5E7EB;
+  overflow-x: hidden;
 }
 
 .currentColor{

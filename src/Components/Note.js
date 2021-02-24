@@ -12,6 +12,8 @@ const Note = ({item,notesData,setNotes}) => {
 
     const [inEditMode,setInEditMode] = useState(false);
     const [editNote , setEditNote] = useState(notes);
+
+    console.log(editNote);
     
 
 
