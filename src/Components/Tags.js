@@ -11,8 +11,11 @@ const Tags = ({tags,setTags,notes,setNotes}) => {
             <input placeholder = "Enter a tag name" className = "tag-input" value={newTag} onChange = {(e)=>setNewTag(e.target.value)}></input>
             <button className = "add-tag" onClick = {(e) => {
                 e.preventDefault();
+                if(newTag!=="")
+                {
                 setTags([...tags,newTag.toLowerCase()]);
                 setNewTag("");
+                }
             }
             }>Add Tag</button>
         </form>   
