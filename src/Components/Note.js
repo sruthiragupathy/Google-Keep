@@ -86,7 +86,7 @@ const Note = ({item,notesData,setNotes}) => {
     
             pin && 
             
-            <FontAwesomeIcon icon={faThumbtack} style = {{color:color.darkColor}}/>
+            <FontAwesomeIcon icon={faThumbtack} style = {{color:color.darkColor}} size = "lg"/>
             
         }
         </div>
