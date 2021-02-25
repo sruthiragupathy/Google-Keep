@@ -70,7 +70,7 @@ const Note = ({item,notesData,setNotes}) => {
                  colors.map ((item,index) => {
                      if (item.darkColor === color.darkColor){
                      return <div style={{border:"3px solid black",borderRadius:"50%"}} key={index} >
-                         <div style={{background:item.darkColor,margin:"0.15rem"}} className="colorList" onClick = {() => setNotes({...notesData,color:{lightColor:item.lightColor,darkColor:item.dar}})}></div>
+                         <div style={{background:item.darkColor,margin:"0.15rem"}} className="colorList" onClick = {() => colorHandler(item)}></div>
                         </div>
 
                      }
